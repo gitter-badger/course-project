@@ -1,2 +1,2 @@
 # course-project
-Обучающая программа по языку Си, с тестированием знаний
+C language learning program
