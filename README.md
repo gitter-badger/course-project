@@ -1,4 +1,3 @@
-# course-project
 C language learning program
 ==============================
 Technologies used:
