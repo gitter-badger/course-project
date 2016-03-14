@@ -15,19 +15,19 @@ namespace ServerSide.Controllers
 {
     public class UsersController : ApiController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ServerSideContext db = new ServerSideContext();
 
         // GET: api/Users
-        public IQueryable<User> GetUsersModels()
+        public IQueryable<User> GetUsers()
         {
-            return db.UsersModels;
+            return db.Users;
         }
 
         // GET: api/Users/5
         [ResponseType(typeof(User))]
         public async Task<IHttpActionResult> GetUser(int id)
         {
-            User user = await db.UsersModels.FindAsync(id);
+            User user = await db.Users.FindAsync(id);
             if (user == null)
             {
                 return NotFound();
@@ -80,7 +80,7 @@ namespace ServerSide.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.UsersModels.Add(user);
+            db.Users.Add(user);
             await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = user.Id }, user);
@@ -90,13 +90,13 @@ namespace ServerSide.Controllers
         [ResponseType(typeof(User))]
         public async Task<IHttpActionResult> DeleteUser(int id)
         {
-            User user = await db.UsersModels.FindAsync(id);
+            User user = await db.Users.FindAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
 
-            db.UsersModels.Remove(user);
+            db.Users.Remove(user);
             await db.SaveChangesAsync();
 
             return Ok(user);
@@ -113,7 +113,7 @@ namespace ServerSide.Controllers
 
         private bool UserExists(int id)
         {
-            return db.UsersModels.Count(e => e.Id == id) > 0;
+            return db.Users.Count(e => e.Id == id) > 0;
         }
     }
 }

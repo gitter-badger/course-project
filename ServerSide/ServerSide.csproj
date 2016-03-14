@@ -36,10 +36,10 @@
     <WarningLevel>4</WarningLevel>
     <PublishDatabaseSettings>
       <Objects>
-        <ObjectGroup Name="DefaultConnection-развертывание" Order="1">
+        <ObjectGroup Name="DefaultConnection-развертывание" Order="1" xmlns="">
           <Destination Path="" />
           <Object Type="DbFullSql">
-            <PreSource Path="Data Source=tcp:n.database.windows.net,1433%3bInitial Catalog=api_db%3bUser Id=mssql%40n%3bPassword=m0Cdv6xpA4TMw220CWjQ" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <PreSource Path="Server=tcp:n.database.windows.net,1433%3bInitial Catalog=api_db%3bUser Id=mssql%40n%3bPassword=m0Cdv6xpA4TMw220CWjQ%3bTrusted_Connection=False%3bEncrypt=True%3b" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
             <Source Path="obj\Debug\AutoScripts\DefaultConnection-развертывание_SchemaOnly.sql" Transacted="True" />
           </Object>
         </ObjectGroup>
@@ -166,8 +166,9 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ServerSideContext.cs" />
     <Compile Include="Models\Question.cs" />
+    <Compile Include="Models\Snippet.cs" />
     <Compile Include="Models\Theory.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -208,7 +209,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\PublishProfiles\Capi - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\Capi - Web Deploy.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

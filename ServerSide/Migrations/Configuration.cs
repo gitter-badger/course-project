@@ -1,3 +1,5 @@
+using ServerSide.Models;
+
 namespace ServerSide.Migrations
 {
     using System;
@@ -5,14 +7,14 @@ namespace ServerSide.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ServerSide.Models.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ServerSide.Models.ServerSideContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(ServerSide.Models.ApplicationDbContext context)
+        protected override void Seed(ServerSide.Models.ServerSideContext context)
         {
             //  This method will be called after migrating to the latest version.
 
@@ -26,6 +28,13 @@ namespace ServerSide.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+                context.Users.AddOrUpdate(
+                  p => p.Id,
+                  new User() { Id = 1, Name = "Nikita Siomin" },
+                  new User() { Id = 2, Name = "Brice Lambson" },
+                  new User() { Id = 3, Name = "Rowan Miller" },
+                  new User() { Id = 4, Name = "Index In" }
+                );
         }
     }
 }
