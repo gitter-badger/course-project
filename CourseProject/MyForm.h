@@ -1,4 +1,5 @@
 #pragma once
+#include "Functions.h"
 
 namespace CourseProject {
 
@@ -65,6 +66,7 @@ namespace CourseProject {
 	private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e)
 	{
 		MessageBox::Show("Test");
+		//Test();
 	}
 	};
 }

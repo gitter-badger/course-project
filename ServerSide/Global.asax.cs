@@ -14,6 +14,7 @@ namespace ServerSide
         {
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            GlobalConfiguration.Configuration.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
         }
     }
