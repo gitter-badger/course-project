@@ -31,9 +31,7 @@ namespace ServerSide.Migrations
                 context.Users.AddOrUpdate(
                   p => p.Id,
                   new User() { Id = 1, Name = "Nikita Siomin" },
-                  new User() { Id = 2, Name = "Brice Lambson" },
-                  new User() { Id = 3, Name = "Rowan Miller" },
-                  new User() { Id = 4, Name = "Index In" }
+                  new User() { Id = 2, Name = "Brice Lambson" }
                 );
         }
     }
