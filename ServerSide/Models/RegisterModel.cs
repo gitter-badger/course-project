@@ -6,7 +6,7 @@ using System.Web;
 
 namespace ServerSide.Models
 {
-    public class UserModel
+    public class RegisterModel
     {
         [Required]
         [Display(Name = @"Login")]

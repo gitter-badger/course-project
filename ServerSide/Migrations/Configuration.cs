@@ -1,17 +1,17 @@
-using ServerSide.Models;
-
 namespace ServerSide.Migrations
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using ServerSide.Models;
 
     internal sealed class Configuration : DbMigrationsConfiguration<ServerSide.Models.ServerSideContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true; //debug
         }
 
         protected override void Seed(ServerSide.Models.ServerSideContext context)
@@ -28,11 +28,6 @@ namespace ServerSide.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-                context.Users.AddOrUpdate(
-                  p => p.Id,
-                  new User() { Id = 1, Name = "Nikita Siomin" },
-                  new User() { Id = 2, Name = "Brice Lambson" }
-                );
         }
     }
 }

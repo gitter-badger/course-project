@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using ServerSide.Models;
 
 namespace ServerSide.Controllers
@@ -13,17 +14,17 @@ namespace ServerSide.Controllers
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
-        private AuthRepository _repo = null;
+        private readonly AuthRepository _repo;
 
         public AccountController()
         {
             _repo = new AuthRepository();
         }
 
-        // POST api/Account/Register
+        // POST api/Account/RegisterUser
         [AllowAnonymous]
-        [Route("Register")]
-        public async Task<IHttpActionResult> Register(UserModel userModel)
+        [Route("RegisterUser")]
+        public async Task<IHttpActionResult> RegisterUser(RegisterModel userModel)
         {
             if (!ModelState.IsValid)
             {
@@ -32,6 +33,30 @@ namespace ServerSide.Controllers
 
             IdentityResult result = await _repo.RegisterUser(userModel);
 
+            IHttpActionResult errorResult = GetErrorResult(result);
+
+            if (errorResult != null)
+            {
+                return errorResult;
+            }
+
+            return Ok();
+        }
+
+        [AllowAnonymous]
+        [Route("DeleteUser")]
+        [HttpGet]
+        public async Task<IHttpActionResult> DeleteUser(string userName)
+        {
+            IdentityResult result = new IdentityResult();
+            try
+            {
+                result = await _repo.DeleteUser(userName);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
             IHttpActionResult errorResult = GetErrorResult(result);
 
             if (errorResult != null)

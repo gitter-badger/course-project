@@ -15,6 +15,7 @@ namespace CourseProject
 		static String^ API = "https://capi.azurewebsites.net/api";
 
 	public:
+		[SerializableAttribute]
 		ref class MyData
 		{
 		public:
@@ -24,7 +25,7 @@ namespace CourseProject
 		static MyData^ data = gcnew MyData(); // Json struct instance
 		
 		static void InitializeFunctions()
-		{ 
+		{
 			//TODO
 		}
 
@@ -64,6 +65,7 @@ namespace CourseProject
 					HttpWebResponse^ httpResponse = (HttpWebResponse^)httpRequest->GetResponse();
 					StreamReader^ sr = gcnew StreamReader(httpResponse->GetResponseStream(), Encoding::Default);
 					String^ result = sr->ReadToEnd();
+					httpResponse->Close();
 
 					return result;
 				}
@@ -71,5 +73,25 @@ namespace CourseProject
 					return e->Message;
 				}
 			}
+
+				static String^ HttpGet(String^ params, String^ route)
+				{
+					try {
+						String^ url = API + route + "/" + params;
+						HttpWebRequest^ httpRequest = (HttpWebRequest^)WebRequest::Create(url);
+						httpRequest->Method = "GET";
+						httpRequest->Accept = "application/json";
+
+						HttpWebResponse^ httpResponse = (HttpWebResponse^)httpRequest->GetResponse();
+						StreamReader^ sr = gcnew StreamReader(httpResponse->GetResponseStream(), Encoding::Default);
+						String^ result = sr->ReadToEnd();
+						httpResponse->Close();
+
+						return result;
+					}
+					catch (WebException^ e) {
+						return e->Message;
+					}
+				}
 	};
 }

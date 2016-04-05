@@ -13,44 +13,44 @@ using ServerSide.Models;
 
 namespace ServerSide.Controllers
 {
-    public class UsersController : ApiController
+    public class QuestionsController : ApiController
     {
         private ServerSideContext db = new ServerSideContext();
 
-        // GET: api/Users
-        public IQueryable<User> GetUsers()
+        // GET: api/Questions
+        public IQueryable<Question> GetQuestions()
         {
-            return db.Users;
+            return db.Questions;
         }
 
-        // GET: api/Users/5
-        [ResponseType(typeof(User))]
-        public async Task<IHttpActionResult> GetUser(int id)
+        // GET: api/Questions/5
+        [ResponseType(typeof(Question))]
+        public async Task<IHttpActionResult> GetQuestion(int id)
         {
-            User user = await db.Users.FindAsync(id);
-            if (user == null)
+            Question question = await db.Questions.FindAsync(id);
+            if (question == null)
             {
                 return NotFound();
             }
 
-            return Ok(user);
+            return Ok(question);
         }
 
-        // PUT: api/Users/5
+        // PUT: api/Questions/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutUser(int id, User user)
+        public async Task<IHttpActionResult> PutQuestion(int id, Question question)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != user.Id)
+            if (id != question.QuestionId)
             {
                 return BadRequest();
             }
 
-            db.Entry(user).State = EntityState.Modified;
+            db.Entry(question).State = EntityState.Modified;
 
             try
             {
@@ -58,7 +58,7 @@ namespace ServerSide.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!QuestionExists(id))
                 {
                     return NotFound();
                 }
@@ -71,35 +71,35 @@ namespace ServerSide.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Users
-        [ResponseType(typeof(User))]
-        public async Task<IHttpActionResult> PostUser(User user)
+        // POST: api/Questions
+        [ResponseType(typeof(Question))]
+        public async Task<IHttpActionResult> PostQuestion(Question question)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Users.Add(user);
+            db.Questions.Add(question);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = user.Id }, user);
+            return CreatedAtRoute("DefaultApi", new { id = question.QuestionId }, question);
         }
 
-        // DELETE: api/Users/5
-        [ResponseType(typeof(User))]
-        public async Task<IHttpActionResult> DeleteUser(int id)
+        // DELETE: api/Questions/5
+        [ResponseType(typeof(Question))]
+        public async Task<IHttpActionResult> DeleteQuestion(int id)
         {
-            User user = await db.Users.FindAsync(id);
-            if (user == null)
+            Question question = await db.Questions.FindAsync(id);
+            if (question == null)
             {
                 return NotFound();
             }
 
-            db.Users.Remove(user);
+            db.Questions.Remove(question);
             await db.SaveChangesAsync();
 
-            return Ok(user);
+            return Ok(question);
         }
 
         protected override void Dispose(bool disposing)
@@ -111,9 +111,9 @@ namespace ServerSide.Controllers
             base.Dispose(disposing);
         }
 
-        private bool UserExists(int id)
+        private bool QuestionExists(int id)
         {
-            return db.Users.Count(e => e.Id == id) > 0;
+            return db.Questions.Count(e => e.QuestionId == id) > 0;
         }
     }
 }
