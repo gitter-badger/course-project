@@ -15,6 +15,12 @@ namespace CourseProject
 		static String^ API = "https://capi.azurewebsites.net/api";
 
 	public:
+		// Need to replace
+	/*{
+		    "userName": "admin",
+			"password" : "secure",
+			"confirmPassword" : "secure"
+	}*/
 		[SerializableAttribute]
 		ref class MyData
 		{
@@ -22,7 +28,16 @@ namespace CourseProject
 			unsigned ID;
 			String^ Name;
 		};
+		[SerializableAttribute]
+		ref class LoginData
+		{
+		public:
+			String^ userName;
+			String^ password;
+			String^ confirmPassword;
+		};
 		static MyData^ data = gcnew MyData(); // Json struct instance
+		static LoginData^ login = gcnew LoginData();
 		
 		static void InitializeFunctions()
 		{
@@ -66,7 +81,7 @@ namespace CourseProject
 					StreamReader^ sr = gcnew StreamReader(httpResponse->GetResponseStream(), Encoding::Default);
 					String^ result = sr->ReadToEnd();
 					httpResponse->Close();
-
+					
 					return result;
 				}
 				catch (WebException^ e) {
@@ -93,5 +108,33 @@ namespace CourseProject
 						return e->Message;
 					}
 				}
+
+					static String^ AuthPost(String^ username, String^ password)
+					{
+						try {
+							String^ grant_type = "password";
+							String^ data = "grant_type=" + grant_type + "&username=" + username + "&password=" + password;
+							String^ route = "/auth";
+							String^ url = API + route;
+							HttpWebRequest^ httpRequest = (HttpWebRequest^)WebRequest::Create(url);
+							httpRequest->Method = "POST";
+							httpRequest->ContentType = "application/x-www-form-urlencoded";
+							array<Byte>^ postBytes = Encoding::UTF8->GetBytes(data);
+							httpRequest->ContentLength = postBytes->Length;
+							Stream^ stream = httpRequest->GetRequestStream();
+							stream->Write(postBytes, 0, postBytes->Length);
+							stream->Close();
+
+							HttpWebResponse^ httpResponse = (HttpWebResponse^)httpRequest->GetResponse();
+							StreamReader^ sr = gcnew StreamReader(httpResponse->GetResponseStream(), Encoding::Default);
+							String^ result = sr->ReadToEnd();
+							httpResponse->Close();
+
+							return result;
+						}
+						catch (WebException^ e) {
+							return e->Message;
+						}
+					}
 	};
 }

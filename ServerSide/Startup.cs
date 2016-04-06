@@ -32,7 +32,7 @@ namespace ServerSide
             OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
             {
                 AllowInsecureHttp = true,
-                TokenEndpointPath = new PathString("/auth"),
+                TokenEndpointPath = new PathString("/api/auth"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
                 Provider = new AuthorizationServerProvider()
             };
