@@ -2,23 +2,18 @@
 namespace CourseProject
 {
 	using namespace System;
+	using namespace System::IO;
 	using namespace Newtonsoft::Json;
 
 	public ref class JsonUtils abstract sealed
 	{
-	public:
+		public:
 		generic <class T>
-		static T Deserialize(String^ json)
-		{
-			auto deserializedObject = JsonConvert::DeserializeObject<T>(json, (JsonSerializerSettings ^)nullptr);
-			return deserializedObject;
-		}
+		static T Deserialize(String^ filename);
 		generic <class T>
-		static String^ Serialize(T value)
-		{
-			return JsonConvert::SerializeObject(value);
-		}
-	};
+		static void Serialize(T value, String^ filename);
+
+};
 }
 
 
