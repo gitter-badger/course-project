@@ -1,5 +1,7 @@
 C language learning program
 ==============================
+
+[![Join the chat at https://gitter.im/stackalloc/course-project](https://badges.gitter.im/stackalloc/course-project.svg)](https://gitter.im/stackalloc/course-project?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Technologies used:
 * C++/CLI 
 * Json.NET  
